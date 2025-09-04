@@ -1,0 +1,125 @@
+// ================= Variables =================
+$color-bg: #0e1013;
+$color-card: #151922;
+$color-text: #e7edf3;
+$color-muted: #9da8b3;
+$color-primary: #5da0ff;
+$radius: 12px;
+$spacing: 12px;
+
+// ================= Mixins =================
+@mixin card {
+  background: $color-card;
+  border-radius: $radius;
+  padding: $spacing;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
+}
+
+@mixin button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+// ================= Base =================
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: $color-text;
+  background-color: $color-bg;
+}
+
+// ================= Layout =================
+.app__header,
+.app__footer {
+  padding: $spacing;
+  text-align: center;
+}
+
+.app__main {
+  display: flex;
+  padding: $spacing;
+  flex-direction: column;
+  gap: $spacing;
+
+  @media(min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: $spacing*2;
+  }
+
+  section {
+    flex: 1;
+    min-width: 250px;
+  }
+
+  section h2 {
+    margin-bottom: $spacing;
+
+    @media(min-width: 768px) {
+      margin-bottom: $spacing * 1.5;
+    }
+  }
+
+}
+
+// ================= Form =================
+.task-form {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing;
+
+  &__input,
+  &__textarea {
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #232a35;
+    background-color: #0f131a;
+    color: $color-text;
+  }
+
+  &__submit {
+    @include button;
+    background-color: $color-primary;
+    color: $color-bg;
+    width: 100%;
+  }
+}
+
+// ================= List of tasks =================
+.task-list {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing;
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: #0f131a;
+  }
+
+  &__title {
+    font-weight: 600;
+  }
+
+  &__desc {
+    color: $color-muted;
+    font-size: 0.9rem;
+  }
+}
