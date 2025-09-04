@@ -7,6 +7,7 @@ The app allows users to **view**, **add**, **complete**, and **delete tasks**.
 
 ## Project Structure
 
+```bash
 task-manager/
 │
 ├─ index.html # Main HTML file
@@ -18,6 +19,7 @@ task-manager/
 ├─ tasks-mongo.json # Example NoSQL database (MongoDB simulation)
 ├─ db.sql # SQL schema example
 └─ README.md # Project documentation
+```
 
 ---
 
