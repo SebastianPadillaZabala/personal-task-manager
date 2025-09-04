@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "64f1a2bc1234567890abcdef",
+    "title": "Finish homework",
+    "description": "Math exercises and reading",
+    "isCompleted": false,
+    "createdAt": "2025-09-03T23:21:00Z"
+  },
+  {
+    "_id": "64f1a2bc1234567890abcdea",
+    "title": "Buy groceries",
+    "description": "Milk, eggs, bread",
+    "isCompleted": true,
+    "createdAt": "2025-09-03T23:25:00Z"
+  }
+]
