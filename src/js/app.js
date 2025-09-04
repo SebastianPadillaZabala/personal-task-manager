@@ -13,32 +13,48 @@ class Task {
 }
 
 class TaskManager {
-    constructor() {
-        this.tasks = [];
+    constructor(api) {
+        this.api = api;
     }
 
-    addTask(task) {
-        this.tasks.push(task);
+    addTask(title, description) {
+        const task = new Task(title, description);
+        this.api.createTask(task);
     }
 
     removeTask(index) {
-        this.tasks.splice(index, 1);
+        this.api.deleteTask(index);
     }
 
     toggleTask(index) {
-        this.tasks[index].toggleComplete();
+        const task = this.api.getTasks()[index];
+        task.toggleComplete();
+        this.api.updateTask(index, task);
     }
 
     getTasks() {
-        return this.tasks;
+        return this.api.getTasks();
     }
 }
+
+// ======================= FAKE API =======================
+
+const FakeAPI = (() => {
+    let tasksDB = [];
+
+    return {
+        getTasks: () => [...tasksDB],
+        createTask: (task) => tasksDB.push(task),
+        updateTask: (index, task) => { tasksDB[index] = task },
+        deleteTask: (index) => { tasksDB.splice(index, 1) }
+    };
+})();
 
 // ======================= DOM ELEMENTS =======================
 
 const taskForm = document.getElementById('taskForm');
 const tasksList = document.getElementById('tasks');
-const manager = new TaskManager();
+const manager = new TaskManager(FakeAPI);
 
 // ======================= RENDERING FUNCTION =======================
 
@@ -55,28 +71,26 @@ function renderTasks() {
                 <div class="task-list__desc">${task.description}</div>
             </div>
             <div>
-                <button onclick="toggleTask(${index})">${task.isCompleted ? 'Undo' : 'Done'}</button>
-                <button onclick="removeTask(${index})">Delete</button>
+                <button class="toggle-btn">${task.isCompleted ? 'Undo' : 'Done'}</button>
+                <button class="delete-btn">Delete</button>
             </div>
         `;
+
+        li.querySelector('.toggle-btn').addEventListener('click', () => {
+            manager.toggleTask(index);
+            renderTasks();
+        });
+
+        li.querySelector('.delete-btn').addEventListener('click', () => {
+            manager.removeTask(index);
+            renderTasks();
+        });
 
         tasksList.appendChild(li);
     });
 }
 
-// ======================= HELPER FUNCTIONS =======================
-
-function toggleTask(index) {
-    manager.toggleTask(index);
-    renderTasks();
-}
-
-function removeTask(index) {
-    manager.removeTask(index);
-    renderTasks();
-}
-
-// ======================= EVENT LISTENER =======================
+// ======================= FORM SUBMIT =======================
 
 taskForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -84,11 +98,12 @@ taskForm.addEventListener('submit', (e) => {
     const title = taskForm.title.value.trim();
     const description = taskForm.description.value.trim();
 
-    if (!title) return;
+    if (title === '') return;
 
-    const newTask = new Task(title, description);
-    manager.addTask(newTask);
-
+    manager.addTask(title, description);
     taskForm.reset();
     renderTasks();
 });
+
+// Initial render
+renderTasks();
