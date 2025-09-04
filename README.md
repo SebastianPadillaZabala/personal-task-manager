@@ -5,7 +5,7 @@ The app allows users to **view**, **add**, **complete**, and **delete tasks**.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 task-manager/
 │
@@ -21,7 +21,7 @@ task-manager/
 
 ---
 
-## 🏗️ HTML & SCSS
+## HTML & SCSS
 
 - **HTML5**: Semantic structure using `<header>`, `<main>`, `<section>`, `<form>`, `<ul>`.
 - **SCSS**:
@@ -33,7 +33,7 @@ task-manager/
 
 ---
 
-## 💻 JavaScript
+## JavaScript
 
 - **Classes & OOP**:
   - `Task`: Represents a single task with properties `title`, `description`, `isCompleted`.
@@ -50,7 +50,7 @@ task-manager/
 
 ---
 
-## 🗄️ Database Simulation
+## Database Simulation
 
 ### SQL Example
 ```sql
